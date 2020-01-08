@@ -2,10 +2,16 @@ import { applyMiddleware, compose } from 'redux';
 
 //middleware
 import { createLogger } from 'redux-logger';
-import createSagaMiddleware from 'redux-saga';
+import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
 
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+        __DEV__: boolean;
+    }
+}
 
-const logger = createLogger({
+const logger: any = createLogger({
     duration: true,
     collapsed: true,
     colors: {
@@ -19,11 +25,11 @@ const logger = createLogger({
 
 const sagaMiddleware = createSagaMiddleware();
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-const composeEnhancers = __DEV__ && devtools ? devtools : compose;
+const composeEnhancers = window.__DEV__ && devtools ? devtools : compose;
 
-const middleware = [sagaMiddleware ];
+const middleware: SagaMiddleware[] = [ sagaMiddleware ];
 
-if(__DEV__) {
+if(window.__DEV__) {
     middleware.push(logger);
 }
 
