@@ -10,10 +10,10 @@ export function* fetchUsers (){
         yield put(uiActions.startFetching() );
 
         const response = yield apply( api, api.users.fetch, [] );
-        const { data: users, message } = yield apply( response, response.json, [] );
+        const users = yield apply( response, response.json, [] );
 
         if(response.status !== 200) {
-            throw new Error(message);
+            throw new Error('🚨 shit happens');
         }
 
         yield put(usersActions.fillUsers(users) );

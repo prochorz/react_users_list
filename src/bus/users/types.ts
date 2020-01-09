@@ -4,3 +4,10 @@ export const types = {
 
     FETCH_USERS_ASYNC: 'FETCH_USERS_ASYNC',
 };
+
+export interface User {
+    id: string;
+    firstName: string;
+    lastName: string;
+    dob: string;
+}

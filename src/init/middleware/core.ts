@@ -7,9 +7,10 @@ import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
 declare global {
     interface Window {
         __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-        __DEV__: boolean;
     }
 }
+
+const __DEV__ = process.env.NODE_ENV === 'development';
 
 const logger: any = createLogger({
     duration: true,
@@ -25,11 +26,12 @@ const logger: any = createLogger({
 
 const sagaMiddleware = createSagaMiddleware();
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-const composeEnhancers = window.__DEV__ && devtools ? devtools : compose;
+
+const composeEnhancers = __DEV__ && devtools ? devtools : compose;
 
 const middleware: SagaMiddleware[] = [ sagaMiddleware ];
 
-if(window.__DEV__) {
+if(__DEV__) {
     middleware.push(logger);
 }
 

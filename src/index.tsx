@@ -9,7 +9,6 @@ import * as serviceWorker from './serviceWorker';
 import { store } from './init/store';
 
 // App
-import './index.css';
 import App from './App';
 
 render(<Provider store = {store} > <App /></Provider>, document.getElementById('root'));
